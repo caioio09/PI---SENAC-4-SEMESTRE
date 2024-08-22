@@ -1,2 +1,0 @@
-# estoquePOO
- Projeto Spring POO
