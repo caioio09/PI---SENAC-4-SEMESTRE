@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" xmlns:th="https://thymeleaf.org">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="first-box">
+        <h1>SEU ESTOQUE - PRODUTO SELECIONADO</h1>
+        <nav>
+            <a href="/"><button class="botoes"> Voltar</button></a>
+            <a href="/formulario"><button class="botoes">Cadastrar</button></a>
+            
+            <a href="/logout" title="sair"><button class="botoes">Sair</button></a>
+        </nav>
+        
+    </div>
+
+    <div class="main-box-analise">
+        <div th:each="produto: ${produto}" th:if="${produto.id == idProduto}">
+            <div class="infos-basicas">
+                <div>ID:  <span th:text="${produto.id}"></span></div>
+                
+                <div>Nome: <span th:text="${produto.nome}">NOME: </span></div>
+                <div> Quantidade:   <span th:text="${produto.qtd}">Qtd: </span></div>
+            </div>
+            <div class="infos-adicionais">
+                <div>Peso: <span th:text="${produto.peso}"> </span>
+                </div>
+                <div id="abc">
+                    <p>Descrição: </p>
+                    <span class="dsc" th:text="${produto.descricao}"> </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

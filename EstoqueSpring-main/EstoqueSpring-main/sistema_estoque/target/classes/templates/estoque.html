@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="first-box">
+        <h1>SEU ESTOQUE</h1>
+        <span id="alert"
+        th:text="${mensagem}"
+        th:if="${mensagem != null}"
+        ></span>
+        <nav>
+            <a href="/formulario"><button class="botoes">Cadastrar Novo</button></a>
+           
+            <a href="/logout" title="sair"><button class="botoes">Sair</button></a>
+        </nav>
+    </div>
+    
+    <div class="main-box" >
+        <table>
+            <tr id="campos">
+                <th id="id">ID</th>
+                <th>NOME</th>
+                <th>QTD</th>
+                <th class="deletar"></th>
+                <th class="ver-mais"></th>
+            </tr>
+            <tr  th:each="produto : ${produtos}" >
+                <td th:text="${produto.id}"></td>
+                <td th:text="${produto.nome}"></td>
+                <td th:text="${produto.qtd}"></td>
+                <td class="deletar">
+                    <form action="/" method="post">
+                        <input type="hidden" name="_csrf" th:value="${_csrf.token}" />  
+                        <input type="hidden" name="_method" value="delete"/>
+                            
+                            <input type="hidden" name="id" th:value="${produto.id}" />
+                            <button id="delete" class="botoes">
+                                <span>✕</span>
+                            </button>
+                    </form>
+                    
+                </td>
+                <td class="deletar">
+                    <form action="/analise" method="get">
+                        <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+                        <input type="hidden" name="id" th:value="${produto.id}"/>
+                        <button class="botoes">
+                            <span>Ver mais</span>
+                        </button>
+                    </form>
+                </td>
+                
+            </tr>
+        </table>
+    </div>
+   
+</body>
+</html>
