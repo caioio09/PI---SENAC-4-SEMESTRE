@@ -1,0 +1,6 @@
+com\senac\pi\ADASPStock\models\Usuario.class
+com\senac\pi\ADASPStock\repository\UsuarioRepository.class
+com\senac\pi\ADASPStock\models\Categoria.class
+com\senac\pi\ADASPStock\models\Produto.class
+com\senac\pi\ADASPStock\AdaspStockApplication.class
+com\senac\pi\ADASPStock\controllers\UsuarioController.class
