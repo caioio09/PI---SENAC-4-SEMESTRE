@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="adiciona.css">
+    <title>ADASP Stock</title>
+</head>
+<body>
+    <nav>
+        <h1><a href="home.html"><img src="home.png" height="24" alt="icone inicio">&ensp;ADASP Stock</a></h1>
+        <ul>
+          <li><a href="estoque.html">Estoque</a></li>
+          <li><a href="adiciona.html">Adicionar Produto</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="index.html">Sair</a></li>
+        </ul>
+      </nav>
+    <div class="main-content">
+        <header>
+            <div class="page-title"><h2>Sistema de Gerenciamento de Estoque</h2></div>
+          </header>
+        <div class="content">
+            <h2>Adicionar Novo Produto</h2>
+            <form id="addProductForm">
+                <div>
+                    <label for="productCode">Código do Produto:</label>
+                    <input type="text" id="productCode" name="productCode" required>
+                </div>
+                <div>
+                    <label for="productName">Nome do Produto:</label>
+                    <input type="text" id="productName" name="productName" required>
+                </div>
+                <div>
+                    <label for="productQuantity">Quantidade Inicial:</label>
+                    <input type="number" id="productQuantity" name="productQuantity" min="0" required>
+                </div>
+                <div>
+                    <label for="productPrice">Preço Unitário (R$):</label>
+                    <input type="number" id="productPrice" name="productPrice" min="0" step="0.01" required>
+                </div>
+                <button type="submit">Adicionar Produto</button>
+            </form>
+            <div id="successMessage" class="success-message">
+                Produto adicionado com sucesso!
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+    
+        <script src="adiciona.js">
+
+        </script>
+    </body>
+    </html>

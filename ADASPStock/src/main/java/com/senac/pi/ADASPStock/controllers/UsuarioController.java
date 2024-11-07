@@ -1,6 +1,7 @@
 package com.senac.pi.ADASPStock.controllers;
 
 import com.senac.pi.ADASPStock.models.Usuario;
+import com.senac.pi.ADASPStock.models.UsuarioError;
 import com.senac.pi.ADASPStock.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -33,9 +35,16 @@ public class UsuarioController {
 
     // Endpoint para criar um novo usuário
     @PostMapping
-    public ResponseEntity<Usuario> createUsuario(@Valid @RequestBody Usuario usuario) {
-        Usuario savedUsuario = usuarioService.createUsuario(usuario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedUsuario);
+    public ResponseEntity<?> createUsuario(@RequestBody Usuario usuario) {
+        try {
+            // Tenta criar o usuário
+            Usuario savedUsuario = usuarioService.createUsuario(usuario);
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedUsuario);
+        } catch (ResponseStatusException ex) {
+            // Se a exceção for lançada, captura e retorna a mensagem de erro no formato JSON
+            UsuarioError usuarioError = new UsuarioError(ex.getReason());
+            return ResponseEntity.status(ex.getStatusCode()).body(usuarioError);
+        }
     }
 
     // Endpoint para atualizar um usuário
