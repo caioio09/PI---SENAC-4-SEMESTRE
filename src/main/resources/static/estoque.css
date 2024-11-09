@@ -1,0 +1,117 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  display: flex;
+}
+a {
+  text-decoration: none;
+  color: white;
+}
+nav {
+  width: 250px;
+  background-color: #2c3e50;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow-y: auto;
+  color: white;
+}
+nav h1 {
+  text-align: center;
+  padding: 20px 10px;
+  margin: 0;
+  font-size: 1.5em;
+  border-bottom: 1px solid #34495e;
+}
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+nav ul li {
+  padding: 10px;
+}
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  display: block;
+  padding: 10px;
+  transition: background-color 0.3s;
+}
+nav ul li a:hover {
+  background-color: #34495e;
+}
+.main-content {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+}
+header {
+  background-color: #3498db;
+  height: 100px;
+  color: white;
+  padding: 1em;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search-bar {
+  width: 70%;
+  height: 30px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 20px;
+  font-size: 20px;
+}
+.content {
+  padding: 20px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+tr:hover {
+  background-color: #f5f5f5;
+}
+.actions {
+  display: flex;
+  justify-content: space-around;
+}
+.actions button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.edit-btn {
+  background-color: #3498db;
+  color: white;
+}
+.delete-btn {
+  background-color: #e74c3c;
+  color: white;
+}
+.edit-btn:hover {
+  background-color: #2980b9;
+}
+.delete-btn:hover {
+  background-color: #c0392b;
+}
