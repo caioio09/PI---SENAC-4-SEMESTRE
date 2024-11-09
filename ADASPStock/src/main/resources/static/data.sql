@@ -1,7 +1,7 @@
-INSERT INTO categoria (nome) VALUES ('Alimentos');
-INSERT INTO categoria (nome) VALUES ('Bebidas');
-INSERT INTO categoria (nome) VALUES ('Brinquedos');
-INSERT INTO categoria (nome) VALUES ('Cosméticos');
-INSERT INTO categoria (nome) VALUES ('Hortifruti');
-INSERT INTO categoria (nome) VALUES ('Eletrônicos');
-INSERT INTO categoria (nome) VALUES ('Roupas');
+INSERT INTO categoria (id, nome) VALUES (1, 'Alimentos');
+INSERT INTO categoria (id, nome) VALUES (2, 'Bebidas');
+INSERT INTO categoria (id, nome) VALUES (3, 'Brinquedos');
+INSERT INTO categoria (id, nome) VALUES (4, 'Cosméticos');
+INSERT INTO categoria (id, nome) VALUES (5, 'Hortifruti');
+INSERT INTO categoria (id, nome) VALUES (6, 'Eletrônicos');
+INSERT INTO categoria (id, nome) VALUES (7, 'Roupas');
