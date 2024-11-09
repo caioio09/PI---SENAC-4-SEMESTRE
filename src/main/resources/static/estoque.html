@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="estoque.css" />
+    <title>ADASP Stock</title>
+    <style></style>
+  </head>
+  <body>
+    <nav>
+      <h1><a href="home.html"><img src="home.png" height="24" alt="icone inicio">&ensp;ADASP Stock</a></h1>
+      <ul>
+        <li><a href="estoque.html">Estoque</a></li>
+        <li><a href="adiciona.html">Adicionar Produto</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="index.html">Sair</a></li>
+      </ul>
+    </nav>
+    <div class="main-content">
+      <header>
+        <input
+          type="text"
+          class="search-bar"
+          placeholder="Buscar produtos..."
+        />
+      </header>
+      <div class="content">
+        <h2>Estoque</h2>
+        <table id="productTable">
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Nome</th>
+              <th>Quantidade</th>
+              <th>Preço Unitário (R$)</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Os produtos serão inseridos aqui dinamicamente -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script src="estoque.js"></script>
+  </body>
+</html>
