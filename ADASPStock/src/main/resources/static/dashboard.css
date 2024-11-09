@@ -56,7 +56,7 @@ header {
   background-color: #3498db;
   color: white;
   padding: 1em;
-  margin-bottom: 20px;
+  margin-bottom: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -67,8 +67,10 @@ header {
 }
 .dashboard {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  width: calc(100% - 250px);
+  margin-left: 60px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 50px;
 }
 .dashboard-item {
   background-color: white;

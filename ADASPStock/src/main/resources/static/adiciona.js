@@ -1,32 +1,41 @@
-document.getElementById('addProductForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const productCode = document.getElementById('productCode').value;
-    const productName = document.getElementById('productName').value;
-    const productQuantity = document.getElementById('productQuantity').value;
-    const productPrice = document.getElementById('productPrice').value;
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("addProductForm");
 
-    console.log('Produto adicionado:', {
-        code: productCode,
-        name: productName,
-        quantity: productQuantity,
-        price: productPrice
-    });
+  form.addEventListener("submit", async function (event) {
+    event.preventDefault(); // Impede o envio padrão do formulário
 
-    document.getElementById('successMessage').style.display = 'block';
+    // Captura os dados do formulário
+    const formData = {
+      id: document.getElementById("id").value,
+      nome: document.getElementById("nome").value,
+      preco: parseFloat(document.getElementById("preco").value),
+      descricao: document.getElementById("descricao").value,
+      quantidade: 0,
+      categoria: {
+        id: parseInt(document.getElementById("categoria_id").value)
+      }
+    };
 
-    this.reset();
-
-    setTimeout(() => {
-        document.getElementById('successMessage').style.display = 'none';
-    }, 3000);
+    try {
+      // Envia os dados para o backend usando fetch
+      const response = await fetch("/produtos/produto", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify(formData)
 });
 
-document.querySelector('.search-bar').addEventListener('keyup', function(e) {
-    if (e.key === 'Enter') {
-        console.log('Buscar por:', this.value);
-        // Aqui você implementaria a lógica de busca
-        alert('Busca realizada por: ' + this.value);
-        this.value = '';
+      if (response.ok) {
+        alert("Produto cadastrado com sucesso!");
+        window.location.href = "/estoque.html";  // Redireciona para a página inicial após o alerta
+      } else {
+        const errorData = await response.json();
+        alert("Erro ao cadastrar produto: " + errorData.message); // Exibe a mensagem de erro
+      }
+    } catch (error) {
+      console.error("Erro no envio do formulário:", error);
+      alert("Erro de conexão. Tente novamente mais tarde.");
     }
+  });
 });

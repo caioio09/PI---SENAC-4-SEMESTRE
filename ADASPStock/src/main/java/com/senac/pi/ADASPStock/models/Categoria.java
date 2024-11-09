@@ -1,6 +1,4 @@
-
 package com.senac.pi.ADASPStock.models;
-
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -16,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class Categoria {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @Column(name = "nome", nullable = false, length = 100)
