@@ -1,91 +1,51 @@
-const products = [
-    { code: "P001", name: "Notebook", quantity: 10, price: 2500.0 },
-    { code: "P002", name: "Smartphone", quantity: 15, price: 1200.0 },
-    { code: "P003", name: "Tablet", quantity: 8, price: 800.0 },
-    { code: "P004", name: "Mouse", quantity: 30, price: 50.0 },
-    { code: "P005", name: "Teclado", quantity: 25, price: 100.0 },
-  ];
+async function renderProductTable() {
+  const tableBody = document.querySelector("#productTable tbody");
+  tableBody.innerHTML = "";
 
-  function renderProductTable() {
-    const tableBody = document.querySelector("#productTable tbody");
-    tableBody.innerHTML = "";
+  try {
+    const response = await fetch("http://localhost:8080/produtos");
+    const products = await response.json();
 
     products.forEach((product) => {
       const row = document.createElement("tr");
       row.innerHTML = `
-                    <td>${product.code}</td>
-                    <td>${product.name}</td>
-                    <td>${product.quantity}</td>
-                    <td>${product.price.toFixed(2)}</td>
-                    <td class="actions">
-                        <button class="edit-btn" onclick="editProduct('${
-                          product.code
-                        }')">Editar</button>
-                        <button class="delete-btn" onclick="deleteProduct('${
-                          product.code
-                        }')">Excluir</button>
-                    </td>
-                `;
+        <td>${product.id}</td>
+        <td>${product.nome}</td>
+        <td>${product.quantidade}</td>
+        <td>${product.preco.toFixed(2)}</td>
+        <td>${product.descricao}</td>
+        <td>${product.categoria.nome}</td>
+        <td class="actions">
+          <button class="edit-btn" onclick="editProduct(${product.id})">Editar</button>
+          <button class="delete-btn" onclick="deleteProduct(${product.id}, '${product.nome}')">Excluir</button>
+        </td>
+      `;
       tableBody.appendChild(row);
     });
+  } catch (error) {
+    console.error("Erro ao carregar produtos:", error);
+    alert("Erro de conexão. Tente novamente mais tarde.");
   }
+}
 
-  function editProduct(code) {
-    console.log("Editando produto:", code);
+async function deleteProduct(id, nome) {
+  if (confirm(`Tem certeza que deseja excluir o produto ${nome} (ID: ${id})?`)) {
+    try {
+      const response = await fetch(`http://localhost:8080/produtos/${id}`, {
+        method: "DELETE",
+      });
 
-    alert(
-      "Funcionalidade de edição a ser implementada para o produto: " + code
-    );
-  }
-
-  function deleteProduct(code) {
-    console.log("Excluindo produto:", code);
-
-    const index = products.findIndex((p) => p.code === code);
-    if (index > -1) {
-      products.splice(index, 1);
-      renderProductTable();
-      alert("Produto excluído com sucesso!");
+      if (response.ok) {
+        alert("Produto excluído com sucesso!");
+        renderProductTable();
+      } else {
+        alert("Erro ao excluir o produto.");
+      }
+    } catch (error) {
+      console.error("Erro ao excluir o produto:", error);
+      alert("Erro de conexão. Tente novamente mais tarde.");
     }
   }
+}
 
-  document
-    .querySelector(".search-bar")
-    .addEventListener("keyup", function (e) {
-      if (e.key === "Enter") {
-        const searchTerm = this.value.toLowerCase();
-        const filteredProducts = products.filter(
-          (product) =>
-            product.name.toLowerCase().includes(searchTerm) ||
-            product.code.toLowerCase().includes(searchTerm)
-        );
-        renderFilteredProducts(filteredProducts);
-        console.log("Busca realizada por:", searchTerm);
-      }
-    });
-
-  function renderFilteredProducts(filteredProducts) {
-    const tableBody = document.querySelector("#productTable tbody");
-    tableBody.innerHTML = "";
-
-    filteredProducts.forEach((product) => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-                    <td>${product.code}</td>
-                    <td>${product.name}</td>
-                    <td>${product.quantity}</td>
-                    <td>${product.price.toFixed(2)}</td>
-                    <td class="actions">
-                        <button class="edit-btn" onclick="editProduct('${
-                          product.code
-                        }')">Editar</button>
-                        <button class="delete-btn" onclick="deleteProduct('${
-                          product.code
-                        }')">Excluir</button>
-                    </td>
-                `;
-      tableBody.appendChild(row);
-    });
-  }
-
-  renderProductTable();
+renderProductTable();
