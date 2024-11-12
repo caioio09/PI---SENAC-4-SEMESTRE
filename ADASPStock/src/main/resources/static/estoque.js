@@ -28,6 +28,11 @@ async function renderProductTable() {
   }
 }
 
+function editProduct(productId) {
+  // Redireciona para a página de cadastro com o ID do produto na URL
+  window.location.href = `/adiciona.html?id=${productId}`;
+}
+
 async function deleteProduct(id, nome) {
   if (confirm(`Tem certeza que deseja excluir o produto ${nome} (ID: ${id})?`)) {
     try {
