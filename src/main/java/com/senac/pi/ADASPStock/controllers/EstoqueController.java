@@ -17,10 +17,10 @@ public class EstoqueController {
     @Autowired
     private EstoqueService estoqueService;
 
-    @PostMapping("/entrada")
+    @PutMapping("/entrada")
     public ResponseEntity<String> registrarEntrada(@Valid @RequestBody EntradaEstoqueDTO entrada) {
         try {
-            estoqueService.registrarEntrada(entrada);
+            estoqueService.atualizarProduto(entrada);
             return ResponseEntity.ok("Entrada de estoque registrada com sucesso!");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)

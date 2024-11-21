@@ -19,12 +19,14 @@ import com.senac.pi.ADASPStock.models.Produto;
     @Autowired
     private ProdutoRepository produtoRepository; // Supondo que exista este repositório
 
-    public void registrarEntrada(EntradaEstoqueDTO entradaDTO) {
-        EntradaEstoque entrada = new EntradaEstoque();
-
-        // Obter o produto a partir do ID
+    public void atualizarProduto(EntradaEstoqueDTO entradaDTO) {
         Produto produto = produtoRepository.findById(entradaDTO.getProdutoId())
                 .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
+
+        produto.setQuantidade(produto.getQuantidade() + entradaDTO.getQuantidade());
+        produtoRepository.save(produto);
+
+        EntradaEstoque entrada = new EntradaEstoque();
 
         entrada.setProduto(produto);
         entrada.setQuantidade(entradaDTO.getQuantidade());

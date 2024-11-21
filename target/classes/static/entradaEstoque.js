@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       try {
         const response = await fetch("/estoque/entrada", {
-            method: "POST",
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
