@@ -1,5 +1,6 @@
 package com.senac.pi.ADASPStock.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.Getter;
 
@@ -9,13 +10,14 @@ import java.time.LocalDateTime;
 @Getter
 public class EntradaEstoqueDTO {
 
-    private long productId;
+
+    private long produtoId;
     private int quantidade;
     private LocalDateTime dataEntrada;
     private String fornecedor;
 
     public void setProductId(long productId) {
-        this.productId = productId;
+        this.produtoId = productId;
     }
 
     public void setQuantidade(int quantidade) {

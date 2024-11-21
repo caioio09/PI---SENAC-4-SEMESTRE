@@ -17,7 +17,6 @@ public class EstoqueController {
     @Autowired
     private EstoqueService estoqueService;
 
-    // Registrar uma nova entrada no estoque
     @PostMapping("/entrada")
     public ResponseEntity<String> registrarEntrada(@Valid @RequestBody EntradaEstoqueDTO entrada) {
         try {
@@ -29,7 +28,6 @@ public class EstoqueController {
         }
     }
 
-    // Listar entradas de estoque
     @GetMapping("/entradas")
     public ResponseEntity<List<EntradaEstoqueDTO>> listarEntradas() {
         List<EntradaEstoqueDTO> entradas = estoqueService.listarEntradas();
