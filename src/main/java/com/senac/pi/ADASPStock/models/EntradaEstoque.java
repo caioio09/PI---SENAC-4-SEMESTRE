@@ -11,7 +11,7 @@ public class EntradaEstoque {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "produto_id", nullable = false)
+    @JoinColumn(name = "produtoId", nullable = false)
     private Produto produto;
 
     private int quantidade;
