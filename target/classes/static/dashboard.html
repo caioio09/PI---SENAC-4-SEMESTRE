@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="icon.png" type="png" />
+    <link rel="stylesheet" href="dashboard.css" />
+    <title>ADASP Stock</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <nav>
+      <h1>
+        <a href="home.html"
+          ><img src="home.png" height="24" alt="icone inicio" />&ensp;ADASP
+          Stock</a
+        >
+      </h1>
+      <div class="profile">
+        <img src="user.png" width="150" alt="foto do usuario" />
+        <p id="usuario">Usuário:</p>
+        <p id="cargo">Cargo:</p>
+      </div>
+      <ul>
+        <li><a href="estoque.html">Estoque</a></li>
+        <li><a href="adiciona.html">Adicionar Produto</a></li>
+        <li><a href="entradaEstoque.html">Entrada de Estoque</a></li>
+        <li><a href="saidaEstoque.html">Saída de Estoque</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="#logout" id="logout">Sair</a></li>
+      </ul>
+    </nav>
+    <div class="main-content">
+      <header>
+        <div class="page-title">
+          <h2>Sistema de Gerenciamento de Estoque</h2>
+        </div>
+      </header>
+      <div class="dashboard">
+        <div class="dashboard-item">
+          <h2>Total de Produtos</h2>
+          <div class="stat" id="totalProducts">0</div>
+        </div>
+        <div class="dashboard-item">
+          <h2>Valor Total do Estoque</h2>
+          <div class="stat" id="totalValue">R$ 0,00</div>
+        </div>
+        <div class="dashboard-item">
+          <h2>Produtos com Estoque Baixo</h2>
+          <div class="stat" id="lowStock">0</div>
+        </div>
+        <div class="dashboard-item">
+          <h2>Produtos Mais Vendidos</h2>
+          <div class="chart-container">
+            <canvas id="topSellingChart"></canvas>
+          </div>
+        </div>
+        <div class="dashboard-item">
+          <h2>Distribuição de Estoque por Categoria</h2>
+          <div class="chart-container">
+            <canvas id="stockDistributionChart"></canvas>
+          </div>
+        </div>
+        <div class="dashboard-item">
+          <h2>Movimentação de Estoque (Últimos 7 dias)</h2>
+          <div class="chart-container">
+            <canvas id="stockMovementChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Dados de exemplo
+      const products = [
+        {
+          code: "P001",
+          name: "Notebook",
+          quantity: 10,
+          price: 2500.0,
+          category: "Eletrônicos",
+          sales: 50,
+        },
+        {
+          code: "P002",
+          name: "Smartphone",
+          quantity: 15,
+          price: 1200.0,
+          category: "Eletrônicos",
+          sales: 80,
+        },
+        {
+          code: "P003",
+          name: "Tablet",
+          quantity: 8,
+          price: 800.0,
+          category: "Eletrônicos",
+          sales: 30,
+        },
+        {
+          code: "P004",
+          name: "Mouse",
+          quantity: 30,
+          price: 50.0,
+          category: "Acessórios",
+          sales: 100,
+        },
+        {
+          code: "P005",
+          name: "Teclado",
+          quantity: 25,
+          price: 100.0,
+          category: "Acessórios",
+          sales: 70,
+        },
+      ];
+
+      // Funções para calcular estatísticas
+      function calculateTotalProducts() {
+        return products.length;
+      }
+
+      function calculateTotalValue() {
+        return products.reduce(
+          (total, product) => total + product.quantity * product.price,
+          0
+        );
+      }
+
+      function calculateLowStock(threshold = 10) {
+        return products.filter((product) => product.quantity < threshold)
+          .length;
+      }
+
+      // Atualizar estatísticas
+      document.getElementById("totalProducts").textContent =
+        calculateTotalProducts();
+      document.getElementById(
+        "totalValue"
+      ).textContent = `R$ ${calculateTotalValue().toFixed(2)}`;
+      document.getElementById("lowStock").textContent = calculateLowStock();
+
+      // Gráfico de produtos mais vendidos
+      const topSellingCtx = document
+        .getElementById("topSellingChart")
+        .getContext("2d");
+      new Chart(topSellingCtx, {
+        type: "bar",
+        data: {
+          labels: products.map((p) => p.name),
+          datasets: [
+            {
+              label: "Vendas",
+              data: products.map((p) => p.sales),
+              backgroundColor: "rgba(54, 162, 235, 0.5)",
+              borderColor: "rgb(54, 162, 235)",
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+
+      // Gráfico de distribuição de estoque por categoria
+      const categories = [...new Set(products.map((p) => p.category))];
+      const stockByCategory = categories.map((category) =>
+        products
+          .filter((p) => p.category === category)
+          .reduce((sum, p) => sum + p.quantity, 0)
+      );
+
+      const stockDistributionCtx = document
+        .getElementById("stockDistributionChart")
+        .getContext("2d");
+      new Chart(stockDistributionCtx, {
+        type: "pie",
+        data: {
+          labels: categories,
+          datasets: [
+            {
+              data: stockByCategory,
+              backgroundColor: [
+                "rgba(255, 99, 132, 0.5)",
+                "rgba(54, 162, 235, 0.5)",
+                "rgba(255, 206, 86, 0.5)",
+                "rgba(75, 192, 192, 0.5)",
+                "rgba(153, 102, 255, 0.5)",
+              ],
+              borderColor: [
+                "rgba(255, 99, 132, 1)",
+                "rgba(54, 162, 235, 1)",
+                "rgba(255, 206, 86, 1)",
+                "rgba(75, 192, 192, 1)",
+                "rgba(153, 102, 255, 1)",
+              ],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+        },
+      });
+
+      // Gráfico de movimentação de estoque (últimos 7 dias)
+      const last7Days = Array.from({ length: 7 }, (_, i) => {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        return d.toLocaleDateString("pt-BR");
+      }).reverse();
+
+      const stockMovementCtx = document
+        .getElementById("stockMovementChart")
+        .getContext("2d");
+      new Chart(stockMovementCtx, {
+        type: "line",
+        data: {
+          labels: last7Days,
+          datasets: [
+            {
+              label: "Entradas",
+              data: [5, 8, 12, 7, 10, 15, 20],
+              borderColor: "rgb(75, 192, 192)",
+              tension: 0.1,
+            },
+            {
+              label: "Saídas",
+              data: [3, 10, 8, 15, 12, 9, 17],
+              borderColor: "rgb(255, 99, 132)",
+              tension: 0.1,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+
+      // Funcionalidade de busca
+      document
+        .querySelector(".search-bar")
+        .addEventListener("keyup", function (e) {
+          if (e.key === "Enter") {
+            const searchTerm = this.value.toLowerCase();
+            const filteredProducts = products.filter(
+              (product) =>
+                product.name.toLowerCase().includes(searchTerm) ||
+                product.code.toLowerCase().includes(searchTerm)
+            );
+            console.log("Produtos encontrados:", filteredProducts);
+            // Aqui você pode implementar uma lógica para exibir os resultados da busca
+            alert(
+              `Encontrados ${filteredProducts.length} produtos com o termo "${searchTerm}"`
+            );
+          }
+        });
+    </script>
+  </body>
+</html>

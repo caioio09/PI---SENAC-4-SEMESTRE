@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="icon.png" type="png" />
+    <link rel="stylesheet" href="estoque.css" />
+    <title>ADASP Stock</title>
+  </head>
+  <body>
+    <nav>
+      <h1>
+        <a href="home.html"
+          ><img src="home.png" height="24" alt="Ícone Início" />&ensp;ADASP
+          Stock</a
+        >
+      </h1>
+      <div class="profile">
+        <img src="user.png" width="150" alt="foto do usuario" />
+        <p id="usuario">Usuário:</p>
+        <p id="cargo">Cargo:</p>
+      </div>
+      <ul>
+        <li><a href="estoque.html">Estoque</a></li>
+        <li><a href="adiciona.html">Adicionar Produto</a></li>
+        <li><a href="entradaEstoque.html">Entrada de Estoque</a></li>
+        <li><a href="saidaEstoque.html">Saída de Estoque</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="#logout" id="logout">Sair</a></li>
+      </ul>
+    </nav>
+
+    <div class="main-content">
+      <header>
+        <div>
+          <div class="search-bar">
+            <input type="text" id="filterInput" placeholder="Filtrar por nome, categoria ou ID" />
+            <button id="filterButton">
+              <img src="glass.png" alt="Filtrar" />
+            </button>
+            <button id="clearFilterButton">
+              <img src="X.png" alt="Limpar" />
+            </button>
+          </div>
+          
+      </header>
+
+      <div class="content">
+        <h2>Estoque</h2>
+        <table id="productTable">
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Nome</th>
+              <th>Quantidade</th>
+              <th>Preço Unitário (R$)</th>
+              <th>Descrição</th>
+              <th>Categoria</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Os produtos serão inseridos aqui dinamicamente -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script src="estoque.js"></script>
+  </body>
+</html>
