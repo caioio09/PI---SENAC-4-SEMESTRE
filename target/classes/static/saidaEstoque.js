@@ -27,9 +27,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     const formData = {
       produtoId: parseInt(produtoSelect.value),
       quantidade: parseInt(document.getElementById("quantidade").value),
-      dataOperacao: new Date().toISOString(), // Data atual no formato ISO
+      dataSaida: new Date().toISOString(), // Data atual no formato ISO
       tipoOperacao: "SAIDA", // Define que é uma saída
-      fornecedorOuDestinatario: document.getElementById("destino").value, // Para saída, usamos "destino"
+      destino: document.getElementById("destino").value, // Para saída, usamos "destino"
     };
 
     try {

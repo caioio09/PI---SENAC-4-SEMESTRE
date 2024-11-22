@@ -13,8 +13,8 @@ public class SaidaEstoqueDTO {
 
     private long produtoId;
     private int quantidade;
-    private LocalDateTime dataEntrada;
-    private String fornecedor;
+    private LocalDateTime dataSaida;
+    private String destino;
 
     public void setProductId(long productId) {
         this.produtoId = productId;
@@ -24,11 +24,11 @@ public class SaidaEstoqueDTO {
         this.quantidade = quantidade;
     }
 
-    public void setDataEntrada(LocalDateTime dataEntrada) {
-        this.dataEntrada = dataEntrada;
+    public void setDataSaida(LocalDateTime dataSaida) {
+        this.dataSaida = dataSaida;
     }
 
-    public void setFornecedor(String fornecedor) {
-        this.fornecedor = fornecedor;
+    public void setDestino(String destino) {
+        this.destino = destino;
     }
 }

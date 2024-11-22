@@ -19,8 +19,8 @@ public class SaidaEstoque {
     private Produto produto;
 
     private int quantidade;
-    private LocalDateTime dataEntrada;
-    private String fornecedor;
+    private LocalDateTime dataSaida;
+    private String destino;
 
 
 }

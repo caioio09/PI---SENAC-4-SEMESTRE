@@ -2,8 +2,10 @@ package com.senac.pi.ADASPStock.service;
 
 import com.senac.pi.ADASPStock.dto.EntradaEstoqueDTO;
 import com.senac.pi.ADASPStock.dto.SaidaEstoqueDTO;
+import com.senac.pi.ADASPStock.models.SaidaEstoque;
 import com.senac.pi.ADASPStock.repository.EntradaEstoqueRepository;
 import com.senac.pi.ADASPStock.repository.ProdutoRepository;
+import com.senac.pi.ADASPStock.repository.SaidaEstoqueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,9 @@ import com.senac.pi.ADASPStock.models.Produto;
 
     @Service
     public class EstoqueService {
+
+    @Autowired
+    private SaidaEstoqueRepository saidaEstoqueRepository;
 
     @Autowired
     private EntradaEstoqueRepository entradaEstoqueRepository;
@@ -37,6 +42,7 @@ import com.senac.pi.ADASPStock.models.Produto;
         entradaEstoqueRepository.save(entrada);
     }
 
+
         public void atualizarProduto(SaidaEstoqueDTO saidaDTO) {
             Produto produto = produtoRepository.findById(saidaDTO.getProdutoId())
                     .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
@@ -47,14 +53,14 @@ import com.senac.pi.ADASPStock.models.Produto;
             } else if (produto.getQuantidade() < saidaDTO.getQuantidade()) {
                 throw new IllegalArgumentException("Quantidade Insuficiente");
             }
-            EntradaEstoque entrada = new EntradaEstoque();
+           SaidaEstoque saida = new SaidaEstoque();
 
-            entrada.setProduto(produto);
-            entrada.setQuantidade(saidaDTO.getQuantidade());
-            entrada.setDataEntrada(saidaDTO.getDataEntrada());
-            entrada.setFornecedor(saidaDTO.getFornecedor());
+            saida.setProduto(produto);
+            saida.setQuantidade(saidaDTO.getQuantidade());
+            saida.setDataSaida(saidaDTO.getDataSaida());
+            saida.setDestino(saidaDTO.getDestino());
 
-            entradaEstoqueRepository.save(entrada);
+            saidaEstoqueRepository.save(saida);
         }
 
 
