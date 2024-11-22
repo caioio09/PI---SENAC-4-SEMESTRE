@@ -1,6 +1,7 @@
 package com.senac.pi.ADASPStock.service;
 
 import com.senac.pi.ADASPStock.dto.EntradaEstoqueDTO;
+import com.senac.pi.ADASPStock.dto.SaidaEstoqueDTO;
 import com.senac.pi.ADASPStock.repository.EntradaEstoqueRepository;
 import com.senac.pi.ADASPStock.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,27 @@ import com.senac.pi.ADASPStock.models.Produto;
 
         entradaEstoqueRepository.save(entrada);
     }
+
+        public void atualizarProduto(SaidaEstoqueDTO saidaDTO) {
+            Produto produto = produtoRepository.findById(saidaDTO.getProdutoId())
+                    .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
+
+            if(produto.getQuantidade() > saidaDTO.getQuantidade()) {
+                produto.setQuantidade(produto.getQuantidade() - saidaDTO.getQuantidade());
+                produtoRepository.save(produto);
+            } else if (produto.getQuantidade() < saidaDTO.getQuantidade()) {
+                throw new IllegalArgumentException("Quantidade Insuficiente");
+            }
+            EntradaEstoque entrada = new EntradaEstoque();
+
+            entrada.setProduto(produto);
+            entrada.setQuantidade(saidaDTO.getQuantidade());
+            entrada.setDataEntrada(saidaDTO.getDataEntrada());
+            entrada.setFornecedor(saidaDTO.getFornecedor());
+
+            entradaEstoqueRepository.save(entrada);
+        }
+
 
     public List<EntradaEstoqueDTO> listarEntradas() {
         List<EntradaEstoque> entradas = entradaEstoqueRepository.findAll();
