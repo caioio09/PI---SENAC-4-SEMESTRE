@@ -44,3 +44,26 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+
+// Adiciona funcionalidade ao link "Sair"
+document.querySelector('a[href="#logout"]').addEventListener("click", function (event) {
+    event.preventDefault(); // Evita o comportamento padrão
+
+    // Faz a requisição POST para o backend
+    fetch("/login/logout", {
+      method: "POST",
+    })
+      .then((response) => {
+        if (response.ok) {
+          // Redireciona para a página de login após o logout
+          window.location.href = "index.html";
+        } else {
+          alert("Erro ao realizar logout. Tente novamente.");
+        }
+      })
+      .catch((error) => {
+        console.error("Erro na requisição de logout:", error);
+        alert("Erro ao conectar ao servidor. Tente novamente mais tarde.");
+      });
+  });

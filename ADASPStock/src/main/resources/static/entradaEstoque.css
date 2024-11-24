@@ -61,6 +61,12 @@ header {
   font-size: 1.5em;
   font-weight: bold;
 }
+.profile {
+  display: block;
+  margin: 20px;
+  justify-content: center;
+  align-items: center;
+}
 .content {
   font-size: 1.25em;
   padding: 20px;

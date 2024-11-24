@@ -1,6 +1,7 @@
 package com.senac.pi.ADASPStock.controllers;
 
 import com.senac.pi.ADASPStock.models.Produto;
+import com.senac.pi.ADASPStock.repository.ProdutoRepository;
 import com.senac.pi.ADASPStock.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -54,5 +55,16 @@ public class ProdutoController {
     public ResponseEntity<Void> deletarProduto(@PathVariable int id) {
         boolean deleted = produtoService.deletarProduto(id);
         return deleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+    }
+    
+    // Filtrar produtos
+    @GetMapping("/filtrar")
+    public ResponseEntity<List<Produto>> filtrarProdutos(@RequestParam String filtro) {
+        try {
+            List<Produto> produtosFiltrados = produtoService.filtrarProdutos(filtro);
+            return ResponseEntity.ok(produtosFiltrados);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao filtrar produtos", e);
+        }
     }
 }

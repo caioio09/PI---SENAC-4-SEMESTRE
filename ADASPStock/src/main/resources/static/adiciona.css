@@ -61,21 +61,26 @@ header {
   font-size: 1.5em;
   font-weight: bold;
 }
+.profile {
+  display: block;
+  margin: 20px;
+  justify-content: center;
+  align-items: center;
+}
 .content {
   font-size: 1.25em;
   padding: 20px;
-  margin-left: 40px
+  margin-left: 40px;
 }
 form {
   display: grid;
   gap: 15px;
-  
 }
 label {
   font-weight: bold;
   font-size: 1em;
-  display: block; 
-  margin-bottom: 5px; 
+  display: block;
+  margin-bottom: 5px;
 }
 input[type="text"],
 input[type="number"],

@@ -1,6 +1,5 @@
 package com.senac.pi.ADASPStock.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -21,7 +20,7 @@ public class Produto {
     @Id
     @Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Size(min = 1, max = 75)
     @Column(name = "nome", nullable = false, length = 75)
@@ -39,7 +38,7 @@ public class Produto {
     private String descricao;
 
     @ManyToOne
-    @JoinColumn(name = "categoria_id", nullable = false)
+    @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
 }

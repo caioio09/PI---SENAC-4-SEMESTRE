@@ -16,13 +16,20 @@
           Stock</a
         >
       </h1>
+      <div class="profile">
+        <img src="user.png" width="150" alt="foto do usuario" />
+        <p id="usuario">Usuário:</p>
+        <p id="cargo">Cargo:</p>
+      </div>
+
       <ul>
         <li><a href="estoque.html">Estoque</a></li>
         <li><a href="adiciona.html">Adicionar Produto</a></li>
         <li><a href="entradaEstoque.html">Entrada de Estoque</a></li>
         <li><a href="saidaEstoque.html">Saída de Estoque</a></li>
+        <li><a href="relatorio.html">Relatorio E/S</a></li>
         <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="index.html">Sair</a></li>
+        <li><a href="#logout" id="logout">Sair</a></li>
       </ul>
     </nav>
     <div class="main-content">
@@ -84,28 +91,6 @@
       </div>
     </div>
 
-    <script>
-      // Funcionalidade de busca
-      document
-        .querySelector(".search-bar")
-        .addEventListener("keyup", function (e) {
-          if (e.key === "Enter") {
-            const searchTerm = this.value.toLowerCase();
-            // Aqui você implementaria a lógica real de busca
-            alert(`Buscando por: "${searchTerm}"`);
-            this.value = ""; // Limpa o campo de busca após a pesquisa
-          }
-        });
-
-      // Animação simples nos cards
-      document.querySelectorAll(".card").forEach((card) => {
-        card.addEventListener("mouseover", function () {
-          this.style.boxShadow = "0 10px 20px rgba(0,0,0,0.2)";
-        });
-        card.addEventListener("mouseout", function () {
-          this.style.boxShadow = "none";
-        });
-      });
-    </script>
+    <script src="home.js"></script>
   </body>
 </html>

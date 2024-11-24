@@ -65,6 +65,12 @@ header {
   font-size: 1.5em;
   font-weight: bold;
 }
+.profile {
+  display: block;
+  margin: 20px;
+  justify-content: center;
+  align-items: center;
+}
 .dashboard {
   display: grid;
   width: calc(100% - 250px);

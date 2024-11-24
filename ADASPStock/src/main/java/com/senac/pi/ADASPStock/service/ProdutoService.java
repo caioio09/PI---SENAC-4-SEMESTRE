@@ -56,4 +56,9 @@ public class ProdutoService {
         }
         return false;
     }
+    
+        // Lógica para filtrar produtos
+    public List<Produto> filtrarProdutos(String filtro) {
+        return produtoRepository.findByNomeContainingIgnoreCaseOrCategoriaNomeContainingIgnoreCase(filtro, filtro);
+    }
 }
