@@ -76,3 +76,69 @@ document.querySelector('a[href="#logout"]').addEventListener("click", function (
       alert("Erro ao conectar ao servidor. Tente novamente mais tarde.");
     });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Faz uma requisição para obter o usuário logado
+  fetch("/login/usuario-logado")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Erro ao obter usuário logado.");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // Atualiza os elementos no HTML com os dados do usuário
+      document.getElementById("usuario").textContent = `Usuário: ${data.username}`;
+      document.getElementById("cargo").textContent = `Cargo: ${data.cargo}`;
+    })
+    .catch((error) => {
+      console.error("Erro:", error);
+      alert("Não foi possível carregar os dados do usuário logado.");
+    });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Verifica o cargo do usuário logado
+  fetch("/login/verificar-cargo")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Erro ao verificar cargo.");
+      }
+      return response.text(); // Retorna o cargo do usuário
+    })
+    .then((cargo) => {
+      if (cargo !== "Gerente") {
+        // Remove o link do Dashboard se não for gerente
+        const dashboardLink = document.querySelector('a[href="dashboard.html"]');
+        if (dashboardLink) {
+          dashboardLink.parentElement.remove();
+        }
+      }
+    })
+    .catch((error) => {
+      console.error("Erro:", error);
+    });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Verifica se há um usuário logado
+  fetch("/login/verificar-usuario-logado")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Erro ao verificar usuário logado.");
+      }
+      return response.json(); // Retorna true ou false
+    })
+    .then((isLoggedIn) => {
+      if (!isLoggedIn) {
+        // Redireciona para index.html se não houver usuário logado
+        alert("Você não está logado. Por favor, faça login.");
+        window.location.href = "index.html";
+      }
+    })
+    .catch((error) => {
+      console.error("Erro:", error);
+      alert("Erro ao verificar sessão. Retornando para o login.");
+      window.location.href = "index.html";
+    });
+});

@@ -47,10 +47,10 @@ import com.senac.pi.ADASPStock.models.Produto;
             Produto produto = produtoRepository.findById(saidaDTO.getProdutoId())
                     .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
 
-            if(produto.getQuantidade() > saidaDTO.getQuantidade()) {
+            if(produto.getQuantidade() >= saidaDTO.getQuantidade()) {
                 produto.setQuantidade(produto.getQuantidade() - saidaDTO.getQuantidade());
                 produtoRepository.save(produto);
-            } else if (produto.getQuantidade() < saidaDTO.getQuantidade()) {
+            } else{
                 throw new IllegalArgumentException("Quantidade Insuficiente");
             }
            SaidaEstoque saida = new SaidaEstoque();
